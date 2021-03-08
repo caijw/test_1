@@ -16,7 +16,17 @@ function createArraybuffer(len) {
     return buffer;
 }
 
+function createSharedArrayBuffer(len) {
+    const buffer = new SharedArrayBuffer(len);
+    const view   = new Uint8Array(buffer);
+    for (let i = 0; i < view.length; ++i) {
+        view[i] = 1;
+    }
+    return buffer;
+}
+
 module.exports = {
     createString,
-    createArraybuffer
+    createArraybuffer,
+    createSharedArrayBuffer,
 }

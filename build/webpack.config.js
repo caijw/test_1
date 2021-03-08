@@ -11,6 +11,7 @@ const config = {
   },
   entry: {
     websocket: ['./ws/browser/index.js'],
+    worker: ['./ws/browser/worker.js'],
   },
   output: {
     filename: '[name].js',

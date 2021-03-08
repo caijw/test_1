@@ -1,626 +1,501 @@
 
 const WS_SERVER_PORT = 8081
-const MIN = 0;
-// const MAX = 10 * 1024 * 1024;
-const MAX = 200000;
-const STRING_TEST_CASES = [
-  {
-    type: "string",
-    length: 100
-  },
-  {
-    type: "string",
-    length: 150
-  },
-  {
-    type: "string",
-    length: 200
-  },
-  {
-    type: "string",
-    length: 250
-  },
-  {
-    type: "string",
-    length: 300
-  },
-  {
-    type: "string",
-    length: 350
-  },
-  {
-    type: "string",
-    length: 400
-  },
-  {
-    type: "string",
-    length: 450
-  },
-  {
-    type: "string",
-    length: 500
-  },
-  {
-    type: "string",
-    length: 550
-  },
-  {
-    type: "string",
-    length: 600
-  },
-  {
-    type: "string",
-    length: 650
-  },
-  {
-    type: "string",
-    length: 700
-  },
-  {
-    type: "string",
-    length: 750
-  },
-  {
-    type: "string",
-    length: 800
-  },
-  {
-    type: "string",
-    length: 850
-  },
-  {
-    type: "string",
-    length: 900
-  },
-  {
-    type: "string",
-    length: 950
-  },
-  {
-    type: "string",
-    length: 1000
-  },
-  {
-    type: "string",
-    length: 1050
-  },
-  {
-    type: "string",
-    length: 1100
-  },
-  {
-    type: "string",
-    length: 1150
-  },
-  {
-    type: "string",
-    length: 1200
-  },
-  {
-    type: "string",
-    length: 1250
-  },
-  {
-    type: "string",
-    length: 1300
-  },
-  {
-    type: "string",
-    length: 1350
-  },
-  {
-    type: "string",
-    length: 1400
-  },
-  {
-    type: "string",
-    length: 1450
-  },
-  {
-    type: "string",
-    length: 1500
-  },
-  {
-    type: "string",
-    length: 1550
-  },
-  {
-    type: "string",
-    length: 1600
-  },
-  {
-    type: "string",
-    length: 1650
-  },
-  {
-    type: "string",
-    length: 1700
-  },
-  {
-    type: "string",
-    length: 1750
-  },
-  {
-    type: "string",
-    length: 1800
-  },
-  {
-    type: "string",
-    length: 1850
-  },
-  {
-    type: "string",
-    length: 1900
-  },
-  {
-    type: "string",
-    length: 1950
-  },
-  {
-    type: "string",
-    length: 2000
-  },
-  {
-    type: "string",
-    length: 3000
-  },
-  {
-    type: "string",
-    length: 4000
-  },
-  {
-    type: "string",
-    length: 5000
-  },
-  {
-    type: "string",
-    length: 6000
-  },
-  {
-    type: "string",
-    length: 7000
-  },
-  {
-    type: "string",
-    length: 8000
-  },
-  {
-    type: "string",
-    length: 9000
-  },
-  {
-    type: "string",
-    length: 10000
-  },
-  {
-    type: "string",
-    length: 20000
-  },
-  {
-    type: "string",
-    length: 30000
-  },
-  {
-    type: "string",
-    length: 40000
-  },
-  {
-    type: "string",
-    length: 50000
-  },
-  {
-    type: "string",
-    length: 60000
-  },
-  {
-    type: "string",
-    length: 70000
-  },
-  {
-    type: "string",
-    length: 80000
-  },
-  {
-    type: "string",
-    length: 90000
-  },
-  {
-    type: "string",
-    length: 100000
-  },
-  {
-    type: "string",
-    length: 110000
-  },
-  {
-    type: "string",
-    length: 120000
-  },
-  {
-    type: "string",
-    length: 130000
-  },
-  {
-    type: "string",
-    length: 140000
-  },
-  {
-    type: "string",
-    length: 150000
-  },
-  {
-    type: "string",
-    length: 160000
-  },
-  {
-    type: "string",
-    length: 170000
-  },
-  {
-    type: "string",
-    length: 180000
-  },
-  {
-    type: "string",
-    length: 190000
-  },
-  {
-    type: "string",
-    length: 200000
-  },
-  {
-    type: "string",
-    length: 1 * 1024 * 1024
-  },
-  {
-    type: "string",
-    length: 2 * 1024 * 1024
-  },
-  {
-    type: "string",
-    length: 3 * 1024 * 1024
-  },
-  {
-    type: "string",
-    length: 4 * 1024 * 1024
-  },
-  {
-    type: "string",
-    length: 5 * 1024 * 1024
-  },
-  {
-    type: "string",
-    length: 6 * 1024 * 1024
-  },
-  {
-    type: "string",
-    length: 7 * 1024 * 1024
-  },
-  {
-    type: "string",
-    length: 8 * 1024 * 1024
-  },
-  {
-    type: "string",
-    length: 9 * 1024 * 1024
-  },
-  {
-    type: "string",
-    length: 10 * 1024 * 1024
-  },
-]
+const CASE_RUN_TIME = 5
 
-const ARRAYBUFFER_TEST_CASES = [
-  {
-    type: "arraybuffer",
-    length: 100
-  },
-  {
-    type: "arraybuffer",
-    length: 150
-  },
-  {
-    type: "arraybuffer",
-    length: 200
-  },
-  {
-    type: "arraybuffer",
-    length: 250
-  },
-  {
-    type: "arraybuffer",
-    length: 300
-  },
-  {
-    type: "arraybuffer",
-    length: 350
-  },
-  {
-    type: "arraybuffer",
-    length: 400
-  },
-  {
-    type: "arraybuffer",
-    length: 450
-  },
-  {
-    type: "arraybuffer",
-    length: 500
-  },
-  {
-    type: "arraybuffer",
-    length: 550
-  },
-  {
-    type: "arraybuffer",
-    length: 600
-  },
-  {
-    type: "arraybuffer",
-    length: 650
-  },
-  {
-    type: "arraybuffer",
-    length: 700
-  },
-  {
-    type: "arraybuffer",
-    length: 750
-  },
-  {
-    type: "arraybuffer",
-    length: 800
-  },
-  {
-    type: "arraybuffer",
-    length: 850
-  },
-  {
-    type: "arraybuffer",
-    length: 900
-  },
-  {
-    type: "arraybuffer",
-    length: 950
-  },
-  {
-    type: "arraybuffer",
-    length: 1000
-  },
-  {
-    type: "arraybuffer",
-    length: 1050
-  },
-  {
-    type: "arraybuffer",
-    length: 1100
-  },
-  {
-    type: "arraybuffer",
-    length: 1150
-  },
-  {
-    type: "arraybuffer",
-    length: 1200
-  },
-  {
-    type: "arraybuffer",
-    length: 1250
-  },
-  {
-    type: "arraybuffer",
-    length: 1300
-  },
-  {
-    type: "arraybuffer",
-    length: 1350
-  },
-  {
-    type: "arraybuffer",
-    length: 1400
-  },
-  {
-    type: "arraybuffer",
-    length: 1450
-  },
-  {
-    type: "arraybuffer",
-    length: 1500
-  },
-  {
-    type: "arraybuffer",
-    length: 1550
-  },
-  {
-    type: "arraybuffer",
-    length: 1600
-  },
-  {
-    type: "arraybuffer",
-    length: 1650
-  },
-  {
-    type: "arraybuffer",
-    length: 1700
-  },
-  {
-    type: "arraybuffer",
-    length: 1750
-  },
-  {
-    type: "arraybuffer",
-    length: 1800
-  },
-  {
-    type: "arraybuffer",
-    length: 1850
-  },
-  {
-    type: "arraybuffer",
-    length: 1900
-  },
-  {
-    type: "arraybuffer",
-    length: 1950
-  },
-  {
-    type: "arraybuffer",
-    length: 2000
-  },
-  {
-    type: "arraybuffer",
-    length: 3000
-  },
-  {
-    type: "arraybuffer",
-    length: 4000
-  },
-  {
-    type: "arraybuffer",
-    length: 5000
-  },
-  {
-    type: "arraybuffer",
-    length: 6000
-  },
-  {
-    type: "arraybuffer",
-    length: 7000
-  },
-  {
-    type: "arraybuffer",
-    length: 8000
-  },
-  {
-    type: "arraybuffer",
-    length: 9000
-  },
-  {
-    type: "arraybuffer",
-    length: 10000
-  },
-  {
-    type: "arraybuffer",
-    length: 20000
-  },
-  {
-    type: "arraybuffer",
-    length: 30000
-  },
-  {
-    type: "arraybuffer",
-    length: 40000
-  },
-  {
-    type: "arraybuffer",
-    length: 50000
-  },
-  {
-    type: "arraybuffer",
-    length: 60000
-  },
-  {
-    type: "arraybuffer",
-    length: 70000
-  },
-  {
-    type: "arraybuffer",
-    length: 80000
-  },
-  {
-    type: "arraybuffer",
-    length: 90000
-  },
-  {
-    type: "arraybuffer",
-    length: 100000
-  },
-  {
-    type: "arraybuffer",
-    length: 110000
-  },
-  {
-    type: "arraybuffer",
-    length: 120000
-  },
-  {
-    type: "arraybuffer",
-    length: 130000
-  },
-  {
-    type: "arraybuffer",
-    length: 140000
-  },
-  {
-    type: "arraybuffer",
-    length: 150000
-  },
-  {
-    type: "arraybuffer",
-    length: 160000
-  },
-  {
-    type: "arraybuffer",
-    length: 170000
-  },
-  {
-    type: "arraybuffer",
-    length: 180000
-  },
-  {
-    type: "arraybuffer",
-    length: 190000
-  },
-  {
-    type: "arraybuffer",
-    length: 200000
-  },
-  {
-    type: "arraybuffer",
-    length: 1 * 1024 * 1024
-  },
-  {
-    type: "arraybuffer",
-    length: 2 * 1024 * 1024
-  },
-  {
-    type: "arraybuffer",
-    length: 3 * 1024 * 1024
-  },
-  {
-    type: "arraybuffer",
-    length: 4 * 1024 * 1024
-  },
-  {
-    type: "arraybuffer",
-    length: 5 * 1024 * 1024
-  },
-  {
-    type: "arraybuffer",
-    length: 6 * 1024 * 1024
-  },
-  {
-    type: "arraybuffer",
-    length: 7 * 1024 * 1024
-  },
-  {
-    type: "arraybuffer",
-    length: 8 * 1024 * 1024
-  },
-  {
-    type: "arraybuffer",
-    length: 9 * 1024 * 1024
-  },
-  {
-    type: "arraybuffer",
-    length: 10 * 1024 * 1024
-  },
-]
+const urlParams = new URLSearchParams(window.location.search);
+const data_type = urlParams.get('data_type');
+let TEST_CASES = []
+if (data_type == "all_data") {
+  TEST_CASES = [
+    {
+      length: 100
+    },
+    {
+      length: 150
+    },
+    {
+      length: 200
+    },
+    {
+      length: 250
+    },
+    {
+      length: 300
+    },
+    {
+      length: 350
+    },
+    {
+      length: 400
+    },
+    {
+      length: 450
+    },
+    {
+      length: 500
+    },
+    {
+      length: 550
+    },
+    {
+      length: 600
+    },
+    {
+      length: 650
+    },
+    {
+      length: 700
+    },
+    {
+      length: 750
+    },
+    {
+      length: 800
+    },
+    {
+      length: 850
+    },
+    {
+      length: 900
+    },
+    {
+      length: 950
+    },
+    {
+      length: 1000
+    },
+    {
+      length: 1050
+    },
+    {
+      length: 1100
+    },
+    {
+      length: 1150
+    },
+    {
+      length: 1200
+    },
+    {
+      length: 1250
+    },
+    {
+      length: 1300
+    },
+    {
+      length: 1350
+    },
+    {
+      length: 1400
+    },
+    {
+      length: 1450
+    },
+    {
+      length: 1500
+    },
+    {
+      length: 1550
+    },
+    {
+      length: 1600
+    },
+    {
+      length: 1650
+    },
+    {
+      length: 1700
+    },
+    {
+      length: 1750
+    },
+    {
+      length: 1800
+    },
+    {
+      length: 1850
+    },
+    {
+      length: 1900
+    },
+    {
+      length: 1950
+    },
+    {
+      length: 2000
+    },
+    {
+      length: 3000
+    },
+    {
+      length: 4000
+    },
+    {
+      length: 5000
+    },
+    {
+      length: 6000
+    },
+    {
+      length: 7000
+    },
+    {
+      length: 8000
+    },
+    {
+      length: 9000
+    },
+    {
+      length: 10000
+    },
+    {
+      length: 20000
+    },
+    {
+      length: 30000
+    },
+    {
+      length: 40000
+    },
+    {
+      length: 50000
+    },
+    {
+      length: 60000
+    },
+    {
+      length: 70000
+    },
+    {
+      length: 80000
+    },
+    {
+      length: 90000
+    },
+    {
+      length: 100000
+    },
+    {
+      length: 110000
+    },
+    {
+      length: 120000
+    },
+    {
+      length: 130000
+    },
+    {
+      length: 140000
+    },
+    {
+      length: 150000
+    },
+    {
+      length: 160000
+    },
+    {
+      length: 170000
+    },
+    {
+      length: 180000
+    },
+    {
+      length: 190000
+    },
+    {
+      length: 200000
+    },
+    {
+      length: 1 * 1024 * 1024,
+      alias: "1M",
+    },
+    {
+      length: 2 * 1024 * 1024,
+      alias: "2M",
+    },
+    {
+      length: 3 * 1024 * 1024,
+      alias: "3M",
+    },
+    {
+      length: 4 * 1024 * 1024,
+      alias: "4M",
+    },
+    {
+      length: 5 * 1024 * 1024,
+      alias: "5M",
+    },
+    {
+      length: 6 * 1024 * 1024,
+      alias: "6M",
+    },
+    {
+      length: 7 * 1024 * 1024,
+      alias: "7M",
+    },
+    {
+      length: 8 * 1024 * 1024,
+      alias: "8M",
+    },
+    {
+      length: 9 * 1024 * 1024,
+      alias: "9M",
+    },
+    {
+      length: 10 * 1024 * 1024,
+      alias: "10M",
+    },
+  ]
+} else if (data_type == "small_data") {
+  TEST_CASES = [
+    {
+      length: 100
+    },
+    {
+      length: 150
+    },
+    {
+      length: 200
+    },
+    {
+      length: 250
+    },
+    {
+      length: 300
+    },
+    {
+      length: 350
+    },
+    {
+      length: 400
+    },
+    {
+      length: 450
+    },
+    {
+      length: 500
+    },
+    {
+      length: 550
+    },
+    {
+      length: 600
+    },
+    {
+      length: 650
+    },
+    {
+      length: 700
+    },
+    {
+      length: 750
+    },
+    {
+      length: 800
+    },
+    {
+      length: 850
+    },
+    {
+      length: 900
+    },
+    {
+      length: 950
+    },
+    {
+      length: 1000
+    },
+    {
+      length: 1050
+    },
+    {
+      length: 1100
+    },
+    {
+      length: 1150
+    },
+    {
+      length: 1200
+    },
+    {
+      length: 1250
+    },
+    {
+      length: 1300
+    },
+    {
+      length: 1350
+    },
+    {
+      length: 1400
+    },
+    {
+      length: 1450
+    },
+    {
+      length: 1500
+    },
+    {
+      length: 1550
+    },
+    {
+      length: 1600
+    },
+    {
+      length: 1650
+    },
+    {
+      length: 1700
+    },
+    {
+      length: 1750
+    },
+    {
+      length: 1800
+    },
+    {
+      length: 1850
+    },
+    {
+      length: 1900
+    },
+    {
+      length: 1950
+    },
+    {
+      length: 2000
+    },
+    {
+      length: 3000
+    },
+    {
+      length: 4000
+    },
+    {
+      length: 5000
+    },
+    {
+      length: 6000
+    },
+    {
+      length: 7000
+    },
+    {
+      length: 8000
+    },
+    {
+      length: 9000
+    },
+    {
+      length: 10000
+    },
+    {
+      length: 20000
+    },
+    {
+      length: 30000
+    },
+    {
+      length: 40000
+    },
+    {
+      length: 50000
+    },
+    {
+      length: 60000
+    },
+    {
+      length: 70000
+    },
+    {
+      length: 80000
+    },
+    {
+      length: 90000
+    },
+    {
+      length: 100000
+    },
+    {
+      length: 110000
+    },
+    {
+      length: 120000
+    },
+    {
+      length: 130000
+    },
+    {
+      length: 140000
+    },
+    {
+      length: 150000
+    },
+    {
+      length: 160000
+    },
+    {
+      length: 170000
+    },
+    {
+      length: 180000
+    },
+    {
+      length: 190000
+    },
+    {
+      length: 200000
+    },
+  ]
+} else if (data_type == "big_data") {
+  TEST_CASES = [
+    {
+      length: 1 * 1024 * 1024,
+      alias: "1M",
+    },
+    {
+      length: 2 * 1024 * 1024,
+      alias: "2M",
+    },
+    {
+      length: 3 * 1024 * 1024,
+      alias: "3M",
+    },
+    {
+      length: 4 * 1024 * 1024,
+      alias: "4M",
+    },
+    {
+      length: 5 * 1024 * 1024,
+      alias: "5M",
+    },
+    {
+      length: 6 * 1024 * 1024,
+      alias: "6M",
+    },
+    {
+      length: 7 * 1024 * 1024,
+      alias: "7M",
+    },
+    {
+      length: 8 * 1024 * 1024,
+      alias: "8M",
+    },
+    {
+      length: 9 * 1024 * 1024,
+      alias: "9M",
+    },
+    {
+      length: 10 * 1024 * 1024,
+      alias: "10M",
+    },
+  ]
+}
+
+
 
 module.exports = {
   WS_SERVER_PORT,
-  STRING_TEST_CASES,
-  ARRAYBUFFER_TEST_CASES,
-  MIN,
-  MAX
+  TEST_CASES,
+  CASE_RUN_TIME,
 }
