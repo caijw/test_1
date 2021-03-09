@@ -2,6 +2,8 @@
 const WS_SERVER_PORT = 8081
 const CASE_RUN_TIME = 5
 let data_type = "small"
+let all_type = ["small", "big", "all"]
+let TEST_CASES = []
 
 if (globalThis.window) {
   const urlParams = new URLSearchParams(window.location.search);
