@@ -1,5 +1,6 @@
-import {test as websocket_test} from "./websocket_test"
-import {test as worker_test} from "./worker_test"
+import { test as websocket_test } from "./websocket_test"
+import { test as worker_test } from "./worker_test"
+import { test as iframe_test } from "./iframe_test"
 const main_element = document.querySelector("#main");
 const CONFIG = require("../config");
 import * as echarts from "echarts";
@@ -44,17 +45,39 @@ const worker_test_suits = [
   },
 ]
 
+const iframe_test_suits = [
+  {
+    name: "Iframe postMessage with String",
+    type: "string",
+    cases: CONFIG.TEST_CASES,
+    genTestData: util.createString
+  },
+  {
+    name: "Iframe postMessage with ArrayBuffer",
+    type: "arraybuffer",
+    cases: CONFIG.TEST_CASES,
+    genTestData: util.createArraybuffer
+  },
+  {
+    name: "Iframe postMessage with SharedArrayBuffer",
+    type: "sharedarraybuffer",
+    cases: CONFIG.TEST_CASES,
+    genTestData: util.createSharedArrayBuffer
+  },
+]
+
 Promise.all([
   websocket_test(websocket_test_suits),
   worker_test(worker_test_suits),
-]).then(function(results) {
+  iframe_test(iframe_test_suits),
+]).then(function (results) {
   let concat_results = []
   for (let i = 0; i < results.length; ++i) {
     concat_results = concat_results.concat(results[i])
   }
   draw(concat_results)
-  console.log("test result:", concat_results)
-}).catch(function(err) {
+  document.querySelector("#test_tip").innerHTML = "测试完成"
+}).catch(function (err) {
   console.error("test error:", err)
 })
 
@@ -76,6 +99,28 @@ function draw(results) {
       name: result.name,
       type: "line",
       data: [],
+      endLabel: {
+        show: true,
+        formatter: function (params) {
+          return result.name
+        }
+      },
+      labelLayout: {
+        moveOverlap: 'shiftY'
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      labelLayout: {
+        moveOverlap: 'shiftY'
+      },
+      encode: {
+        x: 'Year',
+        y: 'Income',
+        label: ['Country', 'Income'],
+        itemName: 'Year',
+        tooltip: ['Income'],
+      }
     }
     for (let j = 0; j < result.result.length; ++j) {
       serie.data.push(result.result[j].cost_time)
@@ -89,7 +134,15 @@ function draw(results) {
       x: "center",
       y: "top",
     },
-    tooltip: {},
+    tooltip: {
+      order: 'valueDesc',
+      trigger: 'axis'
+  },
+    dataZoom: [{
+      startValue: '0'
+    }, {
+      type: 'inside'
+    }],
     xAxis: {
       name: "数据长度",
       data: xdata,

@@ -83,6 +83,7 @@ export async function test(test_suits) {
     ws.addEventListener("open", async function (event) {
       try {
         let test_suits_result = await run_test_suits(test_suits);
+        ws.close()
         resolve(test_suits_result)
 
       } catch (err) {

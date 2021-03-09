@@ -12,6 +12,7 @@ const config = {
   entry: {
     websocket: ['./ws/browser/index.js'],
     worker: ['./ws/browser/worker.js'],
+    iframe: ['./ws/browser/iframe.js'],
   },
   output: {
     filename: '[name].js',
@@ -49,6 +50,12 @@ const config = {
         chunks: ['websocket'],
         title: 'websocket',
     }),
+    new HtmlWebpackPlugin({
+      filename: 'iframe.html',
+      template: './ws/browser/iframe.html',
+      chunks: ['iframe'],
+      title: 'iframe',
+  }),
     new CleanWebpackPlugin(),
 ]
 }

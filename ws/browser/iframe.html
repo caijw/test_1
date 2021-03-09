@@ -10,8 +10,8 @@
     <% } %>
 </head>
 <body>
-    <h5 id="test_tip">正在进行测试，请等待</h5>
     <div id="main" style="width: 600px;height:400px;"></div>
+    <h1>this is iframe</h1>
 <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
 <script type="text/javascript" src="<%=htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
 <% } %>
