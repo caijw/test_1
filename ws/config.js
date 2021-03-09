@@ -5,7 +5,7 @@ let data_type = "small"
 
 if (globalThis.window) {
   const urlParams = new URLSearchParams(window.location.search);
-  data_type = urlParams.get('data_type');
+  data_type = urlParams.get('data_type') || "small";
 }
 
 
