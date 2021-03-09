@@ -10,9 +10,9 @@ const config = {
       port: 2048
   },
   entry: {
-    websocket: ['./ws/browser/index.js'],
-    worker: ['./ws/browser/worker.js'],
-    iframe: ['./ws/browser/iframe.js'],
+    index: ['./src/browser/index.js'],
+    worker: ['./src/browser/worker.js'],
+    iframe: ['./src/browser/iframe.js'],
   },
   output: {
     filename: '[name].js',
@@ -45,14 +45,14 @@ const config = {
         filename: '[name].css'
     }),
     new HtmlWebpackPlugin({
-        filename: 'websocket.html',
-        template: './ws/browser/index.html',
-        chunks: ['websocket'],
-        title: 'websocket',
+        filename: 'index.html',
+        template: './src/browser/index.html',
+        chunks: ['index'],
+        title: 'index',
     }),
     new HtmlWebpackPlugin({
       filename: 'iframe.html',
-      template: './ws/browser/iframe.html',
+      template: './src/browser/iframe.html',
       chunks: ['iframe'],
       title: 'iframe',
   }),

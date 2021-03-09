@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "ws:server": "node ./ws/ws_server.js",
+    "ws:server": "node ./src/ws_server.js",
     "build": "webpack --config build/webpack.config.js --progress --color",
     "build:watch": "webpack --config build/webpack.config.js --progress --color --watch",
     "dev:server": "webpack serve --config build/webpack.config.js --progress --color --open"
