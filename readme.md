@@ -2,9 +2,9 @@
 
 测试了不同的数据类型:
 
-1. String
-2. ArrayBuffer
-3. SharedArrayBuffer
+1. `String`
+2. `ArrayBuffer`
+3. `SharedArrayBuffer`
 
 使用浏览器的不同通信方式的性能比较
 
@@ -21,4 +21,4 @@
 
 1. <http://localhost:2048/index.html?data_type=small> 测试小数据性能（小于1M）
 1. <http://localhost:2048/index.html?data_type=big> 测试大数据性能 （小于等于10M）
-1. <http://localhost:2048/index.html?data_type=all> 测试所有数据性能 （小于等于10M）
+1. <http://localhost:2048/index.html?data_type=all> 测试所有数据性能
